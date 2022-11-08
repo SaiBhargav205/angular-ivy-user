@@ -1,0 +1,82 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <label for="fname">First Name</label>
+  <input type="text" id="fname" formControlName="fname" /><br />
+  <span *ngIf="!userForm.get('fname').valid && userForm.get('fname').touched">
+    FirstName is required<br />
+  </span>
+  <label for="lname">Last Name</label>
+  <input type="text" id="lname" formControlName="lname" /><br />
+  <span *ngIf="!userForm.get('lname').valid && userForm.get('lname').touched">
+    Last Name is required<br />
+  </span>
+  <label for="email">Email</label>
+  <input type="email" id="email" formControlName="email" /><br />
+  <span *ngIf="!userForm.get('email').valid && userForm.get('email').touched">
+    Please enter a valid email<br />
+  </span>
+  <label for="phone">Phone</label>
+  <input type="tel" id="phone" formControlName="phone" minlength="10" /><br />
+  <span *ngIf="!userForm.get('phone').valid && userForm.get('phone').touched">
+    Please enter a valid phone number<br />
+  </span>
+  <label for="company">Company</label>
+  <input type="text" id="company" formControlName="company" /><br />
+  <span
+    *ngIf="!userForm.get('company').valid && userForm.get('company').touched"
+  >
+    Company is required<br />
+  </span>
+  <label for="company">Gender</label><br />
+  <input type="radio" id="male" value="male" formControlName="gender" />
+  <label for="male">Male</label><br />
+  <input type="radio" id="female" value="female" formControlName="gender" />
+  <label for="female">Female</label><br />
+  <span *ngIf="!userForm.get('gender').valid && userForm.get('gender').touched">
+    Gender is required<br />
+  </span>
+  <label>DOB</label>
+  <input type="date" formControlName="dob" /><br />
+  <span *ngIf="!userForm.get('dob').valid && userForm.get('dob').touched">
+    DOB is required<br />
+  </span>
+  <label for="password">Password</label>
+  <input type="password" id="password" formControlName="password" /><br />
+  <label for="c_pwd">Confirm Password</label>
+  <input type="password" id="c_pwd" formControlName="c_pwd" /><br />
+
+  <span *ngIf="!userForm.valid && userForm.touched">
+    Please enter valid data
+  </span>
+  <br />
+  <button type="submit" [disabled]="!userForm.valid">
+    {{ editMode ? 'Update' : 'Register' }}
+  </button>
+  <button type="button" (click)="onCancel()">Cancel</button>
+</form>
+
+<table border="1">
+  <tr>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>E-mail</th>
+    <th>Phone</th>
+    <th>Company</th>
+    <th>DOB</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  <tr *ngFor="let user of users; let i = index">
+    <td>{{ user.fname }}</td>
+    <td>{{ user.lname }}</td>
+    <td>{{ user.email }}</td>
+    <td>{{ user.phone }}</td>
+    <td>{{ user.company }}</td>
+    <td>{{ user.dob }}</td>
+    <td>
+      <button type="button" (click)="edit(i)">Edit</button>
+    </td>
+    <td>
+      <button type="button" (click)="delete(i)">Delete</button>
+    </td>
+  </tr>
+</table>
